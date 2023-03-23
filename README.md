@@ -1,6 +1,8 @@
 # js_paste
 For paste text on html page.
 <hr>
+<img src="./ust.png" alt="странная записка">
+<hr>
 <pre>
 const af=[...'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'];
 console.log(	
