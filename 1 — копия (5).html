@@ -69,6 +69,11 @@ svg.innerHTML+=`<rect id='ute' x='`
 textPath {font-family: sans-serif; font-size: 16px;}
 </style>
 <rect class="x" x="0" y="0" width="900" height="415" fill="#ded"></rect>
+
+<path d="M40 0 V420" stroke="black" stroke-width="1"></path>
+<path d="M60 0 V420" stroke="black" stroke-width="1"></path>
+<path d="M80 0 V420" stroke="black" stroke-width="1"></path>
+
 <ellipse class="x" cx="462.5" cy="302.5" rx="49.5" ry="10" stroke="blue" fill="cyan" opacity="1" stroke-width="1"></ellipse>
 
 
@@ -241,39 +246,47 @@ dawn.h=n.getAttribute('y2')+n.getAttribute('y1');
 	//alert('!');
 	switch(e.key) {//
 		case 'ArrowDown': //↓
-			//if(c>-1)
-				{
-				dawn.y++;
+			switch (bok){
+				case 2: dawn.h++; break;//dawn.y++;
+				case 4: dawn.y++; dawn.h--; break;
+				case 0: dawn.y++; break;
+				}				
 				e.preventDefault();
 				break;
-				}
+				
 		
 		case 'ArrowUp': //↑
-			//if(c>-1)
-				{	
-				dawn.y--;
-				e.preventDefault();
-				break;
-				}		  
-		case 'ArrowRight': //→
-			//if(c>-1)
-				{	
-				dawn.x++;
-				e.preventDefault();
-				break;
-				}	
-		case 'ArrowLeft': //←
-			//if(c>-1)
-				{	
-				dawn.x--;
-				e.preventDefault();
-				break;
-				}		
+			switch (bok){
+				case 2: dawn.h--; break;
+				case 4: dawn.y--; dawn.h++; break;
+				case 0: dawn.y--; break;
+				}					
 
-		case '0': bok++;bok=bok%5// numpad0	, 0	
+				e.preventDefault();
+				break;
+						  
+		case 'ArrowRight': //→
+			switch (bok){
+				case 1: dawn.w++; break;
+				case 3: dawn.x++; dawn.w--; break;
+				case 0: dawn.x++; break;
+				}
+				e.preventDefault();
+				break;
+					
+		case 'ArrowLeft': //←
+			switch (bok){
+				case 1: dawn.w--; break;
+				case 3: dawn.x--; dawn.w++; break;
+				case 0: dawn.x--; break;
+				}
+				e.preventDefault();
+				break;
+						
+
+		case '0': bok++;bok=bok%5;// numpad0	, 0	
 		default: break;
 	}// switch
-	//vw();	
 	h2.innerText=bok;
 //alert(move);
 //let d=document.querySelectorAll('fg');
