@@ -8,7 +8,7 @@
   <title>Doc</title>
   <style>
   *:not(hr), *::after, *::before {box-sizing: border-box;margin:0;padding:0;border:0}ul {list-style-type: none}
-#i{padding: 0px 0;background: linear-gradient(rgba(0,0,0,0.9), blue); 
+#i{padding: 0px 0;display: inline-block;background: linear-gradient(rgba(0,0,0,0.9), blue); 
 text-align: center;
 }
 .hide{display:none}
@@ -28,15 +28,17 @@ label{margin:2px; padding: 7px; display: inline-block; background:#ded;border:2p
 
 <div id=i>
 <svg id="svg" width="900" height="415" viewBox="0 0 900 415" fill="none"
-onmousedown="dawn['down']=true;
-dawn.x=event.clientX; dawn.y=event.clientY-i.offsetTop;
+onmousedown="
+dawn['down']=true;
+dawn.x=event.clientX-i.offsetLeft; 
+dawn.y=event.clientY-i.offsetTop;
 eff.setAttribute('x',dawn.x);
 eff.setAttribute('y',dawn.y);
 eff.classList.remove('hide');"
 
 onmousemove="
 if(dawn['down']){
-let x=dawn.x-event.clientX;
+let x=dawn.x-event.clientX+i.offsetLeft;
 let y=dawn.y-event.clientY;
 //if(x<0){dawn.x=event.clientX; eff.setAttribute('x',dawn.x);}
 //if(y<0){dawn.y=event.clientY-i.offsetTop;eff.setAttribute('y',dawn.y);}
@@ -57,7 +59,7 @@ svg.innerHTML+=`<rect id='ute' x='`
 +dawn.y+`' width='`
 +dawn.w+`' height='`
 +dawn.h+`' stroke='red' stroke-width='1' fill='none'></rect>`;
-move=ute;
+//move=0;
 "
 
 >
@@ -72,7 +74,7 @@ textPath {font-family: sans-serif; font-size: 16px;}
 
 <rect id="eff" class="hide" x="0" y="0" width="90" height="41" stroke="red" fill="none"></rect>
 </svg>
-</div>
+</div><br>
 <label onclick="but0()">rest</label>
 <label onclick="but1()">round</label>
 <label onclick="but2()">line /</label>
@@ -98,7 +100,9 @@ textPath {font-family: sans-serif; font-size: 16px;}
 	<div class="color"></div>	
 	<div class="color"></div>	
 </article>
+<h1 id="h1"></h1><h2 id="h2"></h2>
 <script>
+let bok=0;
 const cc=['white','red','black','green','yellow','lime',
 'violet','purple','navy','aqua','blue','gold',
 'teal','olive','maroon','silver','springgreen','#6c757d','fuchsia'];
@@ -122,58 +126,119 @@ jp.forEach((x,i)=>{
 
 const but0=()=>{//alert(dawn.h);
 n++;
-if(document.getElementById('ute'))ute.remove();
+if(document.getElementById('ute'))ute.remove();// id='mov'
 //svg.innerHTML+=`<rect id='j`+n+`' x='`
-svg.innerHTML+=`<rect id='mov' x='`
-
+svg.innerHTML+=`<rect class="fg"  id='r`
++n+`' x='`
 +dawn.x+`' y='`
 +dawn.y+`' width='`
 +dawn.w+`' height='`
 +dawn.h+`' fill='`
-+ink+`' stroke='black' stroke-width='1' onclick='move=this'></rect>`
-}
++ink+`' stroke='black' stroke-width='1' onmousedown='event.stopPropagation(); `
+//alert(`+n+`);
++` den0(this); `
++`move=`
++n+`'></rect>`
+}//onclick='move=this.id'
 
 const but1=()=>{
 n++;
 if(document.getElementById('ute'))ute.remove();
 svg.innerHTML+=
-`<ellipse  id='j`+n+`' rx="`
+`<ellipse class="fg" id='e`+n+`' rx="`
 +(dawn.w/2)+`" ry="`
 +(dawn.h/2)+`" cx="`
 +(dawn.x+dawn.w/2)+`" cy="`
 +(dawn.y+dawn.h/2)+`" fill="`
-+ink+`"  stroke='black' stroke-width='1' onclick='move=this'/>`
++ink+`"  stroke='black' stroke-width='1' onmousedown='event.stopPropagation(); `
++` den1(this); `
++`move=`
++n+`'></ellipse>`
 }
 
 const but2=()=>{
 n++;
 if(document.getElementById('ute'))ute.remove();
 svg.innerHTML+=
-`<line  id='j`+n+`' x1="`
+`<line  class="fg" id='ll`+n+`'  x1="`
 +(dawn.x+dawn.w)+`" y1="`
 +dawn.y+`" x2="`
 +dawn.x+`" y2="`
 +(dawn.y+dawn.h)+`" stroke="`
-+ink+`" stroke-linecap="square" onclick='move=this'/>`
++ink+`" stroke-linecap="square" stroke-width="5" onmousedown='event.stopPropagation(); `
++` den2(this); `
++`move=`
++n+`'></line>`
 }
 
 const but3=()=>{
 n++;
 if(document.getElementById('ute'))ute.remove();
 svg.innerHTML+=
-`<line  id='j`+n+`' x1="`
+`<line  class="fg" id='ll`+n+`'  x1="`
 +dawn.x+`" y1="`
 +dawn.y+`" x2="`
 +(dawn.x+dawn.w)+`" y2="`
 +(dawn.y+dawn.h)+`" stroke="`
-+ink+`" stroke-linecap="square" onclick='move=this'/>`
++ink+`" stroke-linecap="square" stroke-width="5" onmousedown='event.stopPropagation(); `
++` den2(this); `
++`move=`
++n+`'></line>`
 }
 
+/*
 
+n++;
+if(document.getElementById('ute'))ute.remove();
+svg.innerHTML+=
+`<line class="fg" id='j`+n+`' x1="`
++dawn.x+`" y1="`
++dawn.y+`" x2="`
++(dawn.x+dawn.w)+`" y2="`
++(dawn.y+dawn.h)+`" stroke="`
++ink+`" stroke-linecap="square" onclick='move=this.id'/>`
+}
+
+*/
+
+const den0=(n)=>{
+//alert(n.getAttribute('x'));
+dawn.x=n.getAttribute('x');
+dawn.y=n.getAttribute('y');
+dawn.w=n.getAttribute('width');
+dawn.h=n.getAttribute('height');
+}
+const den1=(n)=>{
+//alert(n.getAttribute('x'));
+dawn.x=n.getAttribute('cx')-n.getAttribute('rx');
+dawn.y=n.getAttribute('cy')-n.getAttribute('ry');
+dawn.w=2*n.getAttribute('rx');
+dawn.h=2*n.getAttribute('ry');
+}
+const den2=(n)=>{
+//alert(n.getAttribute('x'));
+dawn.x=n.getAttribute('x1');
+dawn.y=n.getAttribute('y1');
+dawn.w=n.getAttribute('x2')+n.getAttribute('x1');
+dawn.h=n.getAttribute('y2')+n.getAttribute('y1');
+}
+const den3=(n)=>{
+//alert(n.getAttribute('x'));
+dawn.x=n.getAttribute('x1');
+dawn.y=n.getAttribute('y1');
+dawn.w=n.getAttribute('x2')+n.getAttribute('x1');
+dawn.h=n.getAttribute('y2')+n.getAttribute('y1');
+}
 
  //********************* выбранная точка перемещается курсорными клавишами
  document.addEventListener('keydown', (e) => {// ←↑↓→
 	// сканирование клавы по обобщенной схеме
+	//alert(move);
+	h1.innerText=move;
+	if(move)
+		if(document.getElementById('ute'))
+			ute.remove();
+	//alert('!');
 	switch(e.key) {//
 		case 'ArrowDown': //↓
 			//if(c>-1)
@@ -205,25 +270,45 @@ svg.innerHTML+=
 				break;
 				}		
 
-		case '0': if(c>-1){fa(c)}// numpad0	, 0	
+		case '0': bok++;bok=bok%5// numpad0	, 0	
 		default: break;
 	}// switch
 	//vw();	
-/*	
+	h2.innerText=bok;
+//alert(move);
+//let d=document.querySelectorAll('fg');
+
 if(document.getElementById('ute')){	
-ute.setAttribute('x',dawn.x);
-ute.setAttribute('y',dawn.y);	
-ute.setAttribute('width',dawn.w);
-ute.setAttribute('height',dawn.h);
+	ute.setAttribute('x',dawn.x);
+	ute.setAttribute('y',dawn.y);	
+	ute.setAttribute('width',dawn.w);
+	ute.setAttribute('height',dawn.h);
+	return; 
 }	
-*/
+	//alert('#j'+move);
 //if(document.getElementById('ute'))
+let b=document.querySelector('#r'+move);
+if (b)
 {	
-mov.setAttribute('x',dawn.x);
-mov.setAttribute('y',dawn.y);	
-mov.setAttribute('width',dawn.w);
-mov.setAttribute('height',dawn.h);
-}	
+//alert(b.id);
+b.setAttribute('x',dawn.x);
+b.setAttribute('y',dawn.y);	
+b.setAttribute('width',dawn.w);
+b.setAttribute('height',dawn.h);
+return;
+}
+b=document.querySelector('#e'+move);
+if (b)
+{	
+//alert(b.id);
+b.setAttribute('cx',dawn.x+dawn.w/2);
+b.setAttribute('cy',dawn.y+dawn.h/2);	
+b.setAttribute('rx',dawn.w/2);
+b.setAttribute('ry',dawn.h/2);
+return;
+}
+
+
 	});
 //**************************
 
