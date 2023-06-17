@@ -135,7 +135,7 @@ textPath {font-family: sans-serif; font-size: 16px;}
 	<div class="color"></div>	
 </article>
 <h1 id="h1"></h1><h2 id="h2"></h2><h3 id="h3"></h3>
-<input id="curve" type="checkbox" checked />
+<input id="curve" type="checkbox"  /><!--  checked   -->
 <script>
 let a=[]; // коорды в пикселях
 let b=[]; // коорды в процентах
@@ -460,7 +460,7 @@ dawn={};for (let key in au[n]){dawn[key] = au[n][key];}
 				}
 				e.preventDefault();
 				break;
-						
+		case ' ': but1();break;//	alert('space')			
 
 		case '0': if(!curve.checked){bok++;bok=bok%5;}// numpad0	, 0	
 		default: break;
