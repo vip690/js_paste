@@ -21,19 +21,13 @@ label{margin:2px; padding: 7px; display: inline-block; background:#ded;border:2p
   </style>  
 </head>
 <body text="black" bgcolor="white">
-<a href="file:///K:/!/projAll/html2/dig2.html">feb2023</a>
-<a href="file:///K:/!/projAll/html1/main.html">dec2023</a>
-<a id="a4" href="file:///K:/!/projAll/css_%D0%BF%D1%81%D0%B5%D0%B2%D0%B4%D1%8B/index.html">два кота
-(с iframes)
-</a>
 
 
 <div id=i>
 <svg id="svg" width="900" height="415" viewBox="0 0 900 415" fill="none"
 onmousedown="
 if(curve.checked){
-	const o={x:event.clientX-i.offsetLeft,y:event.clientY-i.offsetTop+window.pageYOffset};
-	//const o={x:e.clientX-i.offsetLeft,y:e.clientY-i.offsetTop+window.pageYOffset};	
+	const o={x:event.clientX-i.offsetLeft,y:event.clientY-i.offsetTop+window.pageYOffset};	
 	// попал в заповедную зону
 	let g=-1;// нарушитель
 	for (let i=0;i<a.length;i++)if(((a[i].x-o.x)*(a[i].x-o.x)+(a[i].y-o.y)*(a[i].y-o.y))<160)g=i;
@@ -103,15 +97,7 @@ textPath {font-family: sans-serif; font-size: 16px;}
 </style>
 <rect class="x" x="0" y="0" width="900" height="415" fill="#ded"></rect>
 
-<g id="grid1">
-
-</g>
-
-
-
-
-
-
+<g id="grid1"></g>
 
 <ellipse class="x" cx="462.5" cy="302.5" rx="49.5" ry="10" stroke="blue" fill="cyan" opacity="1" stroke-width="1"></ellipse>
 <g id="gogo"></g>
@@ -127,7 +113,7 @@ textPath {font-family: sans-serif; font-size: 16px;}
 <label onclick="a=[];c=-1;gogo.innerHTML='';// стирает путь">clear path</label>
 <label onclick="grid()">grid</label>
 
- <article class="palet" style="">
+ <article class="palet">
 	<div class="color"></div>
 	<div class="color"></div>
 	<div class="color"></div>
@@ -137,7 +123,7 @@ textPath {font-family: sans-serif; font-size: 16px;}
 	<div class="color"></div>
 	<div class="color"></div>
 	<div class="color"></div>
-	<div class="color"></div>
+	<div class="color"></div><br>
 	<div class="color"></div>
 	<div class="color"></div>
 	<div class="color"></div>
@@ -352,32 +338,19 @@ bok=0;
 //a=[];c=-1;gogo.innerHTML='';// стирает путь
 }
 
-/*
 
-n++;
-if(document.getElementById('ute'))ute.remove();
-svg.innerHTML+=
-`<line class="fg" id='j`+n+`' x1="`
-+dawn.x+`" y1="`
-+dawn.y+`" x2="`
-+(dawn.x+dawn.w)+`" y2="`
-+(dawn.y+dawn.h)+`" stroke="`
-+ink+`" stroke-linecap="square" onclick='move=this.id'/>`
-}
-
-*/
 const grid=()=>{
 //alert(dawn.w+' '+dawn.h);
 grid1.innerHTML='';
 let xx=0;
 while(xx<900){
 grid1.innerHTML+=
-'<path d="M'+xx+' 0 V420" stroke="black" stroke-width="1"></path>\r\n';
+'<path d="M'+xx+' 0 V420" stroke="gray" stroke-width="1"></path>\r\n';
 xx+=dawn.w;}
 let yy=0;
 while(yy<420){
 grid1.innerHTML+=
-'<path d="M0 '+yy+' H900" stroke="black" stroke-width="1"></path>\r\n';
+'<path d="M0 '+yy+' H900" stroke="gray" stroke-width="1"></path>\r\n';
 yy+=dawn.h;}
 }
 
@@ -414,10 +387,6 @@ const den4=(n)=>{
 //alert(n.getAttribute('x'));
 //=au[n];//au[n]
 dawn={};for (let key in au[n]){dawn[key] = au[n][key];}
-//dawn.x=n.getAttribute('x1');
-//dawn.y=n.getAttribute('y1');
-//dawn.w=n.getAttribute('x2')+n.getAttribute('x1');
-//dawn.h=n.getAttribute('y2')+n.getAttribute('y1');
 }
  //********************* выбранная точка перемещается курсорными клавишами
  document.addEventListener('keydown', (e) => {// ←↑↓→
