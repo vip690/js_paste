@@ -76,17 +76,20 @@ dawn.h=Math.abs(y);
 onmouseup="
 if(curve.checked){}
 else{
-dawn['down']=false;eff.classList.add('hide');
-let x=dawn.x-event.clientX;
-let y=dawn.y-event.clientY;
-console.log([dawn.x,dawn.y,Math.abs(x),Math.abs(y)].join(','));
-if(document.getElementById('ute'))ute.remove();
-svg.innerHTML+=`<rect id='ute' x='`
-+dawn.x+`' y='`
-+dawn.y+`' width='`
-+dawn.w+`' height='`
-+dawn.h+`' stroke='red' stroke-width='1' fill='none'></rect>`;
-//move=0;
+	dawn['down']=false;
+	eff.classList.add('hide');
+	let x=dawn.x-event.clientX;
+	let y=dawn.y-event.clientY;
+
+	console.log([dawn.x,dawn.y,Math.abs(x),Math.abs(y)].join(','));
+
+	if(document.getElementById('ute'))ute.remove();
+	svg.innerHTML+=`<rect id='ute' x='`
+	+dawn.x+`' y='`
+	+dawn.y+`' width='`
+	+dawn.w+`' height='`
+	+dawn.h+`' stroke='red' stroke-width='1' fill='none'></rect>`;
+	//move=0;
 }
 "
 
@@ -101,6 +104,13 @@ textPath {font-family: sans-serif; font-size: 16px;}
 <path d="M40 0 V420" stroke="black" stroke-width="1"></path>
 <path d="M60 0 V420" stroke="black" stroke-width="1"></path>
 <path d="M80 0 V420" stroke="black" stroke-width="1"></path>
+
+
+
+
+
+
+
 
 <ellipse class="x" cx="462.5" cy="302.5" rx="49.5" ry="10" stroke="blue" fill="cyan" opacity="1" stroke-width="1"></ellipse>
 <g id="gogo"></g>
@@ -213,12 +223,16 @@ svg.innerHTML+=`<rect class="fg"  id='r`
 +dawn.y+`' width='`
 +dawn.w+`' height='`
 +dawn.h+`' fill='`
-+ink+`' stroke='black' stroke-width='1' onmousedown='event.stopPropagation(); `
++ink+`' stroke='black' stroke-width='1' `
++` onmouseup="event.stopPropagation();" `
++` onmousemove="event.stopPropagation();" `
++` onmousedown='event.stopPropagation(); `
 //alert(`+n+`);
 +` den0(this); `
 +`move=`
-+n+`'></rect>`;
++n+`;bok=0;'></rect>`;
 au[n]={};for (let key in dawn){au[n][key] = dawn[key];}
+bok=0;
 console.log(au);
 }//onclick='move=this.id'
 
@@ -231,11 +245,16 @@ svg.innerHTML+=
 +(dawn.h/2)+`" cx="`
 +(dawn.x+dawn.w/2)+`" cy="`
 +(dawn.y+dawn.h/2)+`" fill="`
-+ink+`"  stroke='black' stroke-width='1' onmousedown='event.stopPropagation(); `
++ink+`"  stroke='black' stroke-width='1' `
+
++` onmouseup="event.stopPropagation();" `
++` onmousemove="event.stopPropagation();" `
++` onmousedown='event.stopPropagation(); `
 +` den1(this); `
 +`move=`
-+n+`'></ellipse>`;
++n+`;bok=0;'></ellipse>`;
 au[n]={};for (let key in dawn){au[n][key] = dawn[key];}
+bok=0;
 }
 
 const but2=()=>{
@@ -247,11 +266,16 @@ svg.innerHTML+=
 +dawn.y+`" x2="`
 +dawn.x+`" y2="`
 +(dawn.y+dawn.h)+`" stroke="`
-+ink+`" stroke-linecap="square" stroke-width="5" onmousedown='event.stopPropagation(); `
++ink+`" stroke-linecap="square" stroke-width="5" `
+
++` onmouseup="event.stopPropagation();" `
++` onmousemove="event.stopPropagation();" `
++` onmousedown='event.stopPropagation(); `
 +` den2(this); `
 +`move=`
-+n+`'></line>`;
++n+`;bok=0;'></line>`;
 au[n]={};for (let key in dawn){au[n][key] = dawn[key];}
+bok=0;
 }
 
 const but3=()=>{
@@ -263,29 +287,56 @@ svg.innerHTML+=
 +dawn.y+`" x2="`
 +(dawn.x+dawn.w)+`" y2="`
 +(dawn.y+dawn.h)+`" stroke="`
-+ink+`" stroke-linecap="square" stroke-width="5" onmousedown='event.stopPropagation(); `
++ink+`" stroke-linecap="square" stroke-width="5" `
+
++` onmouseup="event.stopPropagation();" `
++` onmousemove="event.stopPropagation();" `
++` onmousedown='event.stopPropagation(); `
 +` den3(this); `
 +`move=`
-+n+`'></line>`;
++n+`;bok=0;'></line>`;
 au[n]={};for (let key in dawn){au[n][key] = dawn[key];}
+bok=0;
 }
 
 const but4=()=>{
 n++;
+let p,px,py;
+console.log(b);
+let a10=b.map(i=>{return {x:(dawn.x+i.x*dawn.w/100),y:(dawn.y+i.y*dawn.h/100)}});
+console.log(a10);
+let a11=a10.map((j,k)=>{let o={x:(j.x-px),y:(j.y-py)};px=j.x;py=j.y;return (k===0)?j:o});
+console.log(a11);
+let a12=a11.map(v=>(v.x|0)+','+(v.y|0)).join(',');
+console.log(a12);
+
 if(document.getElementById('ute'))ute.remove();
 svg.innerHTML+=
-`<path class="fg" id='p`+n+`' d="M`
-+b.map(i=>(dawn.x+i.x*dawn.w/100)+','+(dawn.y+i.y*dawn.h/100)).join(',')
+`<path class="fg" id='p`+n+`' d="m`
+//+b.map(i=>(dawn.x+i.x*dawn.w/100)+','+(dawn.y+i.y*dawn.h/100))
++a12
+//.map((j,k)=>{p=j; return (k===0)?j:({x:(j.x-p.x),y:(j.y-p.y)})})//
+//.map(v=>(v.x+','+v.y))
+//.join(', ')
+
+
 /*+(dawn.w/2)+`" ry="`
 +(dawn.h/2)+`" cx="`
 +(dawn.x+dawn.w/2)+`" cy="`
 +(dawn.y+dawn.h/2)*/
 +`z" fill="`
-+ink+`"  stroke='black' stroke-width='1' onmousedown='event.stopPropagation(); `
++ink+`"  stroke='black' stroke-width='1' `
+
++` onmouseup="event.stopPropagation();" `
++` onmousemove="event.stopPropagation();" `
++` onmousedown='event.stopPropagation(); `
 +` den4(this,`+n+`); `
 +`move=`
-+n+`'></ellipse>`;
++n+`;bok=0;'></ellipse>`;
 au[n]={};for (let key in dawn){au[n][key] = dawn[key];}
+bok=0;
+//**********
+a=[];c=-1;gogo.innerHTML='';
 }
 
 /*
